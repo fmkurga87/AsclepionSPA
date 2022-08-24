@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div *ngIf="!registerMode && !infoMode" style='text-align: center;'>
+        <h1>Bienvenido/a!</h1>
+        <p class="lead">Ingrese sus credenciales</p>
+        <div class="text-center mt-2">
+            <button class="btn btn-primary btn-lg me-2">Ingresar</button>
+            <button (click)="registerToggle()" class="btn btn-info btn-lg me-2">Registrar</button>
+            <button (click)="infoToggle()" class="btn btn-default btn-lg">Mas Info</button>
+        </div>
+    </div>
+
+    <div *ngIf="registerMode" class="container mt-2">
+        <div class="row justify-content-center">
+            <div class="text-center col-4">
+                <app-register (cancela)="cancelRegisterMode($event)"></app-register>
+                <!--<button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Volver</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="infoMode" class="container mt-2">
+        <div class="row justify-content-center">
+            <div class="text-center col-4">
+                <p>Agregar algun formulario de pedido de info</p>
+                <button (click)="infoToggle()" class="btn btn-primary btn-lg me-2">Volver</button>
+            </div>
+        </div>
+    </div>
+</div>

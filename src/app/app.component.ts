@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from './_models/user';
+import { AuthService } from './_services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +13,19 @@ export class AppComponent implements OnInit {
   title = 'AsclepionSPA';
   medics: any;
 
-  constructor(private http: HttpClient) 
+  constructor(private http: HttpClient, private authService: AuthService) 
   {
 
   }
   
   ngOnInit() {
-    this.getMedics();
+    //this.getMedics();
+    this.setCurrentUser();
+  }
+
+  setCurrentUser(){
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.authService.setCurrentUser(user);
   }
 
   getMedics() 
