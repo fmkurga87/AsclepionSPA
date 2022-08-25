@@ -1,21 +1,26 @@
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">AsclepioN</a>
+        <a class="navbar-brand" routerLink="/" routerLinkActive="active">AsclepioN</a>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="authService.currentUser$ | async">
-            <li class="nav-item">
-                <a class="nav-link">Medicos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Calendario</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Turnos</a>
-            </li>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" >
+            <ng-container *ngIf="authService.currentUser$ | async">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Centros" routerLinkActive="active">Centros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Medicos" routerLinkActive="active">Medicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Calendario" routerLinkActive="active">Calendario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Turnos" routerLinkActive="active">Turnos</a>
+                </li>
+            </ng-container>          
         </ul>
-        <div class="dropdown" *ngIf="authService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>Bienvenido USER</a>
+        <div class="dropdown" *ngIf="(authService.currentUser$ | async) as user" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>Bienvenido {{user.nombreUsuario | titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu="">
                 <a class="dropdown-item">Perfil</a>
                 <div class="dropdown-divider"></div>
@@ -36,7 +41,7 @@
                 class="form-control me-2" 
                 type="password" 
                 placeholder="Contraseña">
-            <button class="btn btn-outline-success" type="submit">Ingresar</button>
+            <button class="btn btn-success" type="submit">Ingresar</button>
         </form>
     </div>
 </nav>
