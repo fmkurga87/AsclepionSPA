@@ -1,0 +1,26 @@
+<div class="modal">
+    <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+            <h5><b>Asignación de turno</b></h5>
+            <p>Dia: {{dia}}</p>
+            <p>Hora: {{hora}}</p>
+        </div>
+        <div class="col-md-8">
+            <form>
+                <div class="form-inline">
+                    <label for="Paciente">Paciente: </label>
+                    <input type="text" name="Paciente" class="form-control mx-2">
+                    <label for="Telefono">Telefono: </label>
+                    <input type="text" name="Telefono" class="form-control mx-2">
+                    <label for="ObraSocial">Obra Social: </label>
+                    <input type="text" name="ObraSocial" class="form-control mx-2">
+                </div>
+            </form>
+            <div class="col-md-3">
+                <button class="btn btn-success btn-sm me-2">Confirmar</button>
+                <button class="btn btn-danger btn-sm me-2" (click)="cancel()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="overlay"></div>  -->

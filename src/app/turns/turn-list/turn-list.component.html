@@ -1,1 +1,170 @@
-<p>turn-list works!</p>
+<div *ngFor="let turno of turnsList.turnos">
+    <!-- Turno sin asignar -->
+    <div *ngIf="!turno.paciente">
+        <div class="card text-bg-light" > 
+            <div class="card-body mt-0 mb-0">
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center">
+                        <h3 class="card-text"> <b>{{turno.hora}}</b> </h3>
+                    </div>
+                    <div class="col-md-5">
+                        <p>Turno sin paciente asignado</p>
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                    <!-- https://stackoverflow.com/questions/43533463/how-to-create-a-modal-popup-that-is-compatible-with-angular-4 -->
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-sm me-2" (click)="showModal([turno.hora].toString())"> Asignar paciente</button>
+
+                        <app-turn-edit *ngIf="showIt && [turno.hora].toString() == turnoAux"   
+                                                        [dia] = [turno.dia].toString()
+                                                        [hora] = [turno.hora].toString()
+                                                        [medicoId]=1
+                                                        [centroSaludId]=2 
+                                                        (close)="closeModal($event)">
+                        </app-turn-edit> 
+
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="turno.paciente">
+        <div *ngIf="!turno.confirmado">
+            <!-- Turno asignado pero no confirmado -->
+            <div class="card text-bg-primary" > 
+                <div class="card-body mt-0 mb-0">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <h3 class="card-text"> <b>{{turno.hora}}</b> </h3>
+                        </div>
+                        <div class="col-md-5">
+                            <p>Paciente: {{turno.paciente}}</p>
+                            Telefono: {{turno.telefono || "-"}}
+                        </div>
+                        <div class="col-md-2">
+                            {{turno.obraSocial || "-"}}
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-sm me-2">En espera</button>
+                            <button class="btn btn-danger btn-sm me-2">Cancelar</button>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="turno.confirmado">
+            
+            <div *ngIf="!turno.atendido">
+                <!-- Turno confirmado pero no atendido -->
+                <div class="card text-bg-warning" > 
+                    <div class="card-body mt-0 mb-0">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center">
+                                <h3 class="card-text"> <b>{{turno.hora}}</b> </h3>
+                            </div>
+                            <div class="col-md-5">
+                                <p>Paciente: {{turno.paciente}}</p>
+                                Telefono: {{turno.telefono || "-"}}
+                            </div>
+                            <div class="col-md-2">
+                                {{turno.obraSocial || "-"}}
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-success btn-sm me-2">Atendido</button>
+                                <button class="btn btn-danger btn-sm me-2">Cancelar</button>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="turno.atendido">
+                <!-- Turno atendido -->
+                <div class="card text-bg-success" > 
+                    <div class="card-body mt-0 mb-0">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center">
+                                <h3 class="card-text"> <b>{{turno.hora}}</b> </h3>
+                            </div>
+                            <div class="col-md-5">
+                                <p>Paciente: {{turno.paciente}}</p>
+                                Telefono: {{turno.telefono || "-"}}
+                            </div>
+                            <div class="col-md-2">
+                                {{turno.obraSocial || "-"}}
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <button class="btn btn-danger btn-sm me-2">Cancelar</button>
+                            </div> -->
+                        </div>   
+                    </div>
+                </div>
+            </div>      
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="card text-bg-light" > 
+    <div class="card-body mt-0 mb-0">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center">
+                <h3 class="card-text"> <b>10:00</b> </h3>
+            </div>
+            <div class="col-md-5">
+                <p>Turno sin paciente asignado</p>
+            </div>
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-info btn-sm me-2">Asignar paciente</button>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<div class="card text-bg-success" > 
+    <div class="card-body mt-0 mb-0">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center">
+                <h3 class="card-text"> <b>10:15</b> </h3>
+            </div>
+            <div class="col-md-5">
+                <p>Paciente: Federico Kurganoff</p>
+                Telefono: 03492-627150
+            </div>
+            <div class="col-md-2">
+                OSDE
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-danger btn-sm me-2">Cancelar</button>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<div class="card text-bg-primary" > 
+    <div class="card-body mt-0 mb-0">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center">
+                <h3 class="card-text"> <b>10:30</b> </h3>
+            </div>
+            <div class="col-md-5">
+                <p>Paciente: Federico Kurganoff</p>
+                Telefono: 03492-627150
+            </div>
+            <div class="col-md-2">
+                OSDE
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success btn-sm me-2">En espera</button>
+                <button class="btn btn-danger btn-sm me-2">Cancelar</button>
+            </div>
+        </div>   
+    </div>
+</div> -->

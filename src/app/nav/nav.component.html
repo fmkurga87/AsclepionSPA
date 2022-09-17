@@ -17,6 +17,9 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/Turnos" routerLinkActive="active">Turnos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Usuarios" routerLinkActive="active">Usuarios</a>
+                </li>
             </ng-container>          
         </ul>
         <div class="dropdown" *ngIf="(authService.currentUser$ | async) as user" dropdown>

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,6 +21,14 @@ import { MedicDetailComponent } from './medics/medic-detail/medic-detail.compone
 import { CenterListComponent } from './centers/center-list/center-list.component';
 import { CenterDetailComponent } from './centers/center-detail/center-detail.component';
 import { CalendarComponent } from './calendar/calendar/calendar.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserCardComponent } from './users/user-card/user-card.component';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { NotFoundComponent } from './error/not-found/not-found.component';
+import { ServerErrorComponent } from './error/server-error/server-error.component';
+import { MedicCardComponent } from './medics/medic-card/medic-card.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { TurnEditComponent } from './turns/turn-edit/turn-edit.component';
 
 
 @NgModule({
@@ -33,7 +43,13 @@ import { CalendarComponent } from './calendar/calendar/calendar.component';
     MedicDetailComponent,
     CenterListComponent,
     CenterDetailComponent,
-    CalendarComponent
+    CalendarComponent,
+    UserListComponent,
+    UserCardComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    MedicCardComponent,
+    TurnEditComponent
   ],
   imports: [
     // Si esto se vuelve muy desorganizado, ver el video 73 del curso.
@@ -43,9 +59,14 @@ import { CalendarComponent } from './calendar/calendar/calendar.component';
     BrowserAnimationsModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({positionClass: 'toast-bottom-right'})
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
+    FontAwesomeModule,
+    TabsModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

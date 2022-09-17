@@ -25,13 +25,13 @@ export class NavComponent implements OnInit {
   {
     this.authService.login(this.model).subscribe(
                                 { next: response => {
-                                                      console.log(response);
+                                                      //console.log(response);
                                                       this.router.navigateByUrl("/Calendario");
                                                     },
-                                  error:  error =>  {
-                                                      console.log(error);
-                                                      this.toastr.error(error.error);
-                                                    }
+                                  // error:  error =>  {
+                                  //                     console.log(error);
+                                  //                     this.toastr.error(error.error);
+                                  //                   }
                                 });
   }
 

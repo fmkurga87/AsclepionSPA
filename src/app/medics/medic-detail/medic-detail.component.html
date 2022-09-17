@@ -1,1 +1,69 @@
-<p>medic-detail works!</p>
+<div class="row" *ngIf="medic">
+    <div class="col-4">
+        <div class="card">
+            <img src="{{medic.photoUrl || './assets/medic_icon.png'}}" alt="{{medic.apellido}} {{medic.nombre}}"
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Dr. </strong>
+                    <p>{{medic.apellido}}, {{medic.nombre}}</p>
+                </div>
+                <div>
+                    <strong>Legajo</strong>
+                    <p>{{medic.legajo}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group d-flex">
+                <button class="btn btn-primary">Solicitar Turno</button>
+                <button class="btn btn-success">Accion 2</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="{{medic.nombre}} {{medic.apellido}}" >
+                <h4>Dato 1</h4>
+                <p>Sacar esto de AppUser</p>
+                <h4>Dato 2</h4>
+                <p>Sacar esto de AppUser</p>
+
+                <hr>
+                <h4>Especialidades</h4>
+                <ul>
+                    <div *ngFor="let especialidad of medic.especialidades">
+                        <li>{{especialidad.descripcion}}</li>
+                    </div>
+                </ul>
+            </tab>
+            <tab heading="Obras Sociales">
+                <!-- <ul>
+                    <div *ngFor="let OS of medic.obrasSociales">
+                        <li>
+                            <div>
+                                <h4>{{OS.nombreCorto}}</h4> {{OS.nombreLargo}}
+                            </div> 
+                        </li>
+                    </div>
+                </ul> -->
+                <div *ngFor="let OS of medic.obrasSociales">    
+                    <i class="fa fa-plus-square"></i> <u><b>{{OS.nombreCorto}}</b></u> {{OS.nombreLargo}}
+                </div>
+
+            </tab>
+            <tab heading="Centros de Salud">
+                <div *ngFor="let centro of medic.centrosDeSalud">
+                    <i class="fa fa-hospital-o"></i> {{centro.nombre}}
+                </div>
+            </tab> 
+            <!-- <tab heading="TEST">
+                <div *ngFor="let centro of medic.centrosDeSalud">
+                    <i class="fa fa-hospital-o"></i> {{centro.nombre}}
+                </div>
+                
+            </tab>  -->
+        </tabset>
+    </div>
+</div>
